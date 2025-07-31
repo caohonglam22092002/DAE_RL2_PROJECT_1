@@ -1,47 +1,51 @@
-Overview
-========
+DAE_RL2_PROJECT_1
+DAE_RL2_PROJECT_1 là dự án xây dựng pipeline xử lý dữ liệu IoT phục vụ bài toán phát hiện bất thường (Anomaly Detection).
+Pipeline được triển khai bằng Astro + Apache Airflow, tự động hóa các bước:
+Kiểm tra dữ liệu đầu vào
+Tiền xử lý và chuẩn hóa dữ liệu IoT
+Lưu trữ dữ liệu đã xử lý để phục vụ huấn luyện mô hình phát hiện bất thường
 
-Welcome to Astronomer! This project was generated after you ran 'astro dev init' using the Astronomer CLI. This readme describes the contents of the project, as well as how to run Apache Airflow on your local machine.
+Cấu trúc dự án
+├── dags/                     # DAG của Airflow
+│   └── dae_rl2_data_pipeline.py
+├── include/
+│   └── DAE_RL2.py            # Module tiền xử lý & phát hiện bất thường
+├── tests/                    # Unit test cho pipeline
+├── .gitignore                # Bỏ qua dataset và file tạm
+├── Dockerfile                # Định nghĩa image chạy Airflow
+├── compose.yaml              # Docker Compose khởi chạy Airflow
+├── requirements.txt          # Thư viện Python cần thiết
+└── README.md                 # Hướng dẫn sử dụng
+Lưu ý: Dataset không nằm trong repo.
+Bạn cần tải dataset từ nguồn ngoài và đặt tại include/datasets/.
 
-Project Contents
-================
+Yêu cầu hệ thống
+Python 3.9 trở lên
+Docker và Docker Compose
+Astro CLI (xem hướng dẫn cài đặt tại trang chủ Astronomer)
 
-Your Astro project contains the following files and folders:
-
-- dags: This folder contains the Python files for your Airflow DAGs. By default, this directory includes one example DAG:
-    - `example_astronauts`: This DAG shows a simple ETL pipeline example that queries the list of astronauts currently in space from the Open Notify API and prints a statement for each astronaut. The DAG uses the TaskFlow API to define tasks in Python, and dynamic task mapping to dynamically print a statement for each astronaut. For more on how this DAG works, see our [Getting started tutorial](https://www.astronomer.io/docs/learn/get-started-with-airflow).
-- Dockerfile: This file contains a versioned Astro Runtime Docker image that provides a differentiated Airflow experience. If you want to execute other commands or overrides at runtime, specify them here.
-- include: This folder contains any additional files that you want to include as part of your project. It is empty by default.
-- packages.txt: Install OS-level packages needed for your project by adding them to this file. It is empty by default.
-- requirements.txt: Install Python packages needed for your project by adding them to this file. It is empty by default.
-- plugins: Add custom or community plugins for your project to this file. It is empty by default.
-- airflow_settings.yaml: Use this local-only file to specify Airflow Connections, Variables, and Pools instead of entering them in the Airflow UI as you develop DAGs in this project.
-
-Deploy Your Project Locally
-===========================
-
-Start Airflow on your local machine by running 'astro dev start'.
-
-This command will spin up five Docker containers on your machine, each for a different Airflow component:
-
-- Postgres: Airflow's Metadata Database
-- Scheduler: The Airflow component responsible for monitoring and triggering tasks
-- DAG Processor: The Airflow component responsible for parsing DAGs
-- API Server: The Airflow component responsible for serving the Airflow UI and API
-- Triggerer: The Airflow component responsible for triggering deferred tasks
-
-When all five containers are ready the command will open the browser to the Airflow UI at http://localhost:8080/. You should also be able to access your Postgres Database at 'localhost:5432/postgres' with username 'postgres' and password 'postgres'.
-
-Note: If you already have either of the above ports allocated, you can either [stop your existing Docker containers or change the port](https://www.astronomer.io/docs/astro/cli/troubleshoot-locally#ports-are-not-available-for-my-local-airflow-webserver).
-
-Deploy Your Project to Astronomer
-=================================
-
-If you have an Astronomer account, pushing code to a Deployment on Astronomer is simple. For deploying instructions, refer to Astronomer documentation: https://www.astronomer.io/docs/astro/deploy-code/
-
-Contact
-=======
-
-The Astronomer CLI is maintained with love by the Astronomer team. To report a bug or suggest a change, reach out to our support.
-# DAE_RL2_PROJECT
-# DAE_RL2_PROJECT
+Cài đặt và chạy pipeline
+1. Clone repo
+git clone git@github.com:caohonglam22092002/DAE_RL2_PROJECT_1.git
+cd DAE_RL2_PROJECT_1
+2. Chuẩn bị dataset
+Tải dataset IoT từ nguồn ngoài (ví dụ Google Drive, HuggingFace)
+Đặt dataset vào:
+include/datasets/
+Thư mục này đã được .gitignore để tránh đẩy file lớn lên GitHub.
+3. Cài đặt Python packages (nếu chạy local)
+pip install -r requirements.txt
+4. Khởi động Airflow bằng Astro CLI
+astro dev start
+Truy cập Airflow UI tại: http://localhost:8080
+Đăng nhập: admin / admin (mặc định)
+5. Kích hoạt DAG
+Bật DAG dae_rl2_data_pipeline trên Airflow UI
+Trigger DAG để thực hiện các bước:
+check_file_exists – Kiểm tra dataset
+load_and_process_data – Tiền xử lý dữ liệu
+save_processed_data – Lưu dữ liệu đã chuẩn hóa
+Kết quả pipeline
+Dữ liệu IoT đã chuẩn hóa được lưu tại:
+include/datasets/dataset.csv
+include/datasets/processed_y_binary.csv
