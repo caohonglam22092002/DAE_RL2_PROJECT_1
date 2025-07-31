@@ -1,0 +1,6 @@
+api-server:
+    port: "8080"
+project:
+    name: dae-rl-2-project
+webserver:
+    port: "8080"

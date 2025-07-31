@@ -1,0 +1,23 @@
+# Astro Runtime includes the following pre-installed providers packages: https://www.astronomer.io/docs/astro/runtime-image-architecture#provider-packages
+# Airflow core
+
+# ML & Data Processing
+scikit-learn
+pandas
+joblib
+
+# Cho DAE (Autoencoder), nếu bạn dùng Keras hoặc TensorFlow
+tensorflow
+
+# Hệ thống, đường dẫn, OS utils
+python-dotenv
+
+# MQTT (nếu bạn dùng MQTT client để lấy dữ liệu streaming)
+paho-mqtt
+
+# Logging (nếu muốn mở rộng)
+loguru
+
+# Optionals cho visualization/log
+matplotlib
+seaborn
