@@ -5,17 +5,19 @@ Kiểm tra dữ liệu đầu vào
 Tiền xử lý và chuẩn hóa dữ liệu IoT
 Lưu trữ dữ liệu đã xử lý để phục vụ huấn luyện mô hình phát hiện bất thường
 
-Cấu trúc dự án
-├── dags/                     # DAG của Airflow
-│   └── dae_rl2_data_pipeline.py
-├── include/
-│   └── DAE_RL2.py            # Module tiền xử lý & phát hiện bất thường
-├── tests/                    # Unit test cho pipeline
-├── .gitignore                # Bỏ qua dataset và file tạm
-├── Dockerfile                # Định nghĩa image chạy Airflow
-├── compose.yaml              # Docker Compose khởi chạy Airflow
-├── requirements.txt          # Thư viện Python cần thiết
-└── README.md                 # Hướng dẫn sử dụng
+Cấu trúc dự án:
+dags/ – DAG của Airflow
+dae_rl2_data_pipeline.py – File DAG chính
+include/ – Chứa các module xử lý
+DAE_RL2.py – Module tiền xử lý & phát hiện bất thường
+tests/ – Unit test cho pipeline
+.gitignore – Bỏ qua dataset và file tạm
+Dockerfile – Định nghĩa image chạy Airflow
+compose.yaml – Docker Compose khởi chạy Airflow
+requirements.txt – Danh sách thư viện Python cần thiết
+README.md – Hướng dẫn sử dụng dự án
+
+
 Lưu ý: Dataset không nằm trong repo.
 Bạn cần tải dataset từ nguồn ngoài và đặt tại include/datasets/.
 
