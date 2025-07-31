@@ -34,7 +34,6 @@ cd DAE_RL2_PROJECT_1
 Tải dataset IoT từ nguồn ngoài (ví dụ Google Drive, HuggingFace)
 Đặt dataset vào:
 include/datasets/
-Thư mục này đã được .gitignore để tránh đẩy file lớn lên GitHub.
 3. Cài đặt Python packages (nếu chạy local)
 pip install -r requirements.txt
 4. Khởi động Airflow bằng Astro CLI
